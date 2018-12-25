@@ -262,11 +262,11 @@ fi
 # Ref: https://github.com/nodesource/distributions
 if [ "$ghost_num" = "1" ] || [ ! -f /usr/bin/node ]; then
   if [ "$os_type" = "CentOS" ]; then
-    curl -sL https://rpm.nodesource.com/setup_6.x | bash -
+    curl -sL https://rpm.nodesource.com/setup_11.x | bash -
     sed -i '/gpgkey/a exclude=nodejs' /etc/yum.repos.d/epel.repo
     yum -y --disablerepo=epel install nodejs || { echoerr "Failed to install 'nodejs'."; exit 1; }
   else
-    curl -sL https://deb.nodesource.com/setup_6.x | bash -
+    curl -sL https://deb.nodesource.com/setup_11.x | bash -
     apt-get -yq install nodejs || { echoerr "Failed to install 'nodejs'."; exit 1; }
   fi
 fi
@@ -297,7 +297,7 @@ cd "/var/www/$BLOG_FQDN" || exit 1
 sudo -u "$ghost_user" BLOG_FQDN="$BLOG_FQDN" ghost_num="$ghost_num" ghost_port="$ghost_port" HOME="/var/www/$BLOG_FQDN" /bin/bash <<'SU_END'
 
 # Get the Ghost blog source, unzip and install.
-ghost_url="https://github.com/TryGhost/Ghost/releases/download/0.11.14/Ghost-0.11.14.zip"
+ghost_url="https://github.com/TryGhost/Ghost/releases/download/2.9.1/Ghost-2.9.1.zip"
 if ! wget -t 3 -T 30 -nv -O ghost-latest.zip "$ghost_url"; then
   echo "Error: Cannot download Ghost blog source." >&2
   exit 1
@@ -376,7 +376,7 @@ if [ "$ghost_num" = "1" ] || [ ! -f /opt/nginx/sbin/nginx ]; then
   
   # Download and compile Nginx:
   cd /opt/src || exit 1
-  wget -t 3 -T 30 -qO- https://nginx.org/download/nginx-1.14.2.tar.gz | tar xz
+  wget -t 3 -T 30 -qO- https://nginx.org/download/nginx-1.15.7.tar.gz | tar xz
   [ ! -d nginx-1.14.2 ] && { echoerr "Cannot download Nginx source."; exit 1; }
   cd nginx-1.14.2 || exit 1
   ./configure --add-module=../naxsi-0.55.3/naxsi_src/ \
