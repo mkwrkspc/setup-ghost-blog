@@ -297,7 +297,7 @@ cd "/var/www/$BLOG_FQDN" || exit 1
 sudo -u "$ghost_user" BLOG_FQDN="$BLOG_FQDN" ghost_num="$ghost_num" ghost_port="$ghost_port" HOME="/var/www/$BLOG_FQDN" /bin/bash <<'SU_END'
 
 # Get the Ghost blog source, unzip and install.
-ghost_url="https://github.com/TryGhost/Ghost/releases/download/0.11.14/Ghost-0.11.14.zip"
+ghost_url="https://ghost.org/zip/ghost-latest.zip"
 if ! wget -t 3 -T 30 -nv -O ghost-latest.zip "$ghost_url"; then
   echo "Error: Cannot download Ghost blog source." >&2
   exit 1
